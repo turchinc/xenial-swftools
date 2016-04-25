@@ -1,0 +1,9 @@
+m
+pdf2swf
+pdftoppm
+*.o
+*.obj
+*.pdf
+*.swf
+switch
+Makefile
