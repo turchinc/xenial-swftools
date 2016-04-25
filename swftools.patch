@@ -1,0 +1,42 @@
+--- swftools/lib/jpeg.c
++++ swftools/lib/jpeg.c
+@@ -4,10 +4,18 @@
+ #include "jpeg.h"
+ #include "../config.h"
+ 
++
+ #ifdef HAVE_JPEGLIB
++#ifndef FALSE            /* in case these macros already exist */
++#define FALSE   0        /* values of boolean */
++#endif
++#ifndef TRUE
++#define TRUE    1
++#endif
+ #define HAVE_BOOLEAN
+ #include <jpeglib.h>
+ 
++
+ #define OUTBUFFER_SIZE 0x8000
+ 
+ static FILE*fi;
+--- swftools/src/gif2swf.c
++++ swftools/src/gif2swf.c
+@@ -468,7 +468,7 @@ TAG *MovieAddFrame(SWF * swf, TAG * t, char *sname, int id, int imgidx)
+ 
+     free(pal);
+     free(imagedata);
+-    DGifCloseFile(gft);
++    DGifCloseFile(gft, 0);
+ 
+     return t;
+ }
+@@ -541,7 +541,7 @@ int CheckInputFile(char *fname, char **realname)
+             fprintf(stderr, "frame: %u, delay: %.3f sec\n", i + 1, getGifDelayTime(gft, i) / 100.0);
+     }
+ 
+-    DGifCloseFile(gft);
++    DGifCloseFile(gft,0);
+ 
+     return 0;
+ }
+

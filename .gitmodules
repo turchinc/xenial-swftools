@@ -1,0 +1,3 @@
+[submodule "swftools"]
+	path = swftools
+	url = https://github.com/turchinc/swftools.git
