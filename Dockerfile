@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # we use a (patched) copy of the swftools repo at
 # git clone https://github.com/turchinc/swftools  
-ADD swftools/ /tmp/swftools
+ADD swftools-master.tar.gz /tmp
 
 #download and decompress deps
 RUN cd /tmp && \
@@ -21,15 +21,14 @@ RUN cd /tmp && tar zxf freetype-2.4.0.tar.gz && tar zxf jpegsrc.v9a.tar.gz
 # http://permalink.gmane.org/gmane.comp.tools.swftools.general/2259
 RUN apt-get update && apt-get install -y wget make g++ patch zlib1g-dev libgif-dev libpoppler-dev
 
-RUN cd /tmp/jpeg-9a && ./configure && make && make install
-RUN cd /tmp/freetype-2.4.0 && ./configure && make && make install
 # patched the git repo externally! the double make works around an error in the autoconfigure...
 # only works on second run...
 # this is just a cluster all around:
 # https://github.com/docker/docker/issues/9547
-RUN cd /tmp/swftools \ 
+RUN	cd /tmp/jpeg-9a && ./configure && make && make install && \
+	cd /tmp/freetype-2.4.0 && ./configure && make && make install && \
+	cd /tmp/swftools-master \ 
 	&& chmod +x ./configure && sync \
 	&& ./configure && make -i && make && make install && \
-	ldconfig /usr/local/lib
+	ldconfig /usr/local/lib &&  cd /tmp && rm -rf swftools* && rm -rf jpeg* && rm -rf freetype*
 
-RUN cd /tmp && rm -rf swftools* && rm -rf jpeg* && rm -rf freetype*
