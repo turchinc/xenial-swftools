@@ -7,12 +7,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # swftools build from source, I cannot find a package for this anywhere
 # starting point https://hub.docker.com/r/liubin/swftools/~/dockerfile/
 
-# we use a copy of the swftools repo at (seems current?)
-# git clone http://repo.or.cz/swftools.git swftools-master
-ADD swftools-master/ /tmp/swftools-master
-# extended jpeg patch for gif: 
-# https://github.com/search?utf8=%E2%9C%93&q=DGifCloseFile&type=Code&ref=searchresults
-ADD swftools.patch /tmp/swftools.patch
+# we use a (patched) copy of the swftools repo at
+# git clone https://github.com/turchinc/swftools  
+ADD swftools/ /tmp/swftools
 
 #download and decompress deps
 RUN cd /tmp && \
@@ -28,7 +25,7 @@ RUN cd /tmp/jpeg-9a && ./configure && make && make install
 RUN cd /tmp/freetype-2.4.0 && ./configure && make && make install
 # patched the git repo externally! the double make works around an error in the autoconfigure...
 # only works on second run...
-RUN cd /tmp/swftools-master \ 
+RUN cd /tmp/swftools \ 
 	&& ./configure && make -i && make && make install && \
 	ldconfig /usr/local/lib
 
