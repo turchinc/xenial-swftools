@@ -25,8 +25,10 @@ RUN cd /tmp/jpeg-9a && ./configure && make && make install
 RUN cd /tmp/freetype-2.4.0 && ./configure && make && make install
 # patched the git repo externally! the double make works around an error in the autoconfigure...
 # only works on second run...
+# this is just a cluster all around:
+# https://github.com/docker/docker/issues/9547
 RUN cd /tmp/swftools \ 
-	&& chmod 777 ./configure \
+	&& chmod +x ./configure && sync \
 	&& ./configure && make -i && make && make install && \
 	ldconfig /usr/local/lib
 
