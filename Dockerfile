@@ -26,6 +26,7 @@ RUN cd /tmp/freetype-2.4.0 && ./configure && make && make install
 # patched the git repo externally! the double make works around an error in the autoconfigure...
 # only works on second run...
 RUN cd /tmp/swftools \ 
+	&& chmod 777 ./configure \
 	&& ./configure && make -i && make && make install && \
 	ldconfig /usr/local/lib
 
