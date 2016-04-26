@@ -15,8 +15,8 @@ chdir("$directory/tmp/") or die;
 
 sub cleanup_and_die
 {
-    system("rm -f xpdf");
-    system("rm -f $directory");
+    system("rm -rf xpdf");
+    system("rm -rf $directory");
 }
 
 print "Extracting $filename\n";
