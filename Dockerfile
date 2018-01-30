@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y wget make g++ patch zlib1g-dev libgif-d
 # this is just a cluster all around:
 # https://github.com/docker/docker/issues/9547
 RUN	cd /tmp/jpeg-9a && ./configure && make && make install && \
-	cd /tmp/freetype-2.4.0 && ./configure && make && make install && \
+	cd /tmp/freetype-2.9 && ./configure && make && make install && \
 	cd /tmp/swftools-master \ 
 	&& chmod +x ./configure && sync \
 	&& ./configure && make -i && make && make install && \
