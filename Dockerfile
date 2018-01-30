@@ -4,7 +4,7 @@ LABEL tag="turchinc/xenial-swftools" vendor="Bertsch Innovation GmbH"
 MAINTAINER Chris Turchin <chris.turchin@bertschinnovation.com>
 ENV DEBIAN_FRONTEND noninteractive
 
-# swftools build from source, I cannot find a package for this anywhere
+# swftools build from source, I cannot find a package for this anywhere 
 # starting point https://hub.docker.com/r/liubin/swftools/~/dockerfile/
 
 # we use a (patched) copy of the swftools repo at
@@ -13,9 +13,9 @@ ADD swftools-master.tar.gz /tmp
 
 #download and decompress deps
 RUN cd /tmp && \
-wget http://download.savannah.gnu.org/releases/freetype/freetype-2.4.0.tar.gz && \
+wget http://babyname.tips/mirrors/nongnu/freetype/freetype-2.9.tar.gz && \
 wget http://www.ijg.org/files/jpegsrc.v9a.tar.gz
-RUN cd /tmp && tar zxf freetype-2.4.0.tar.gz && tar zxf jpegsrc.v9a.tar.gz 
+RUN cd /tmp && tar zxf freetype-2.9.tar.gz && tar zxf jpegsrc.v9a.tar.gz 
 
 # additional deps per info here 
 # http://permalink.gmane.org/gmane.comp.tools.swftools.general/2259
